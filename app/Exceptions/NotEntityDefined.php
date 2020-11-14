@@ -9,6 +9,6 @@ class NotEntityDefined extends Exception
 {
     public function render()
     {
-        return response()->json('The entity was not defined', 500);
+        return response()->json(['error' => 'The entity was not defined.'], 500);
     }
 }
