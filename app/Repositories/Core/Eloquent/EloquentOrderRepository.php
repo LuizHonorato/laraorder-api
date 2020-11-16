@@ -14,9 +14,4 @@ class EloquentOrderRepository extends BaseEloquentRepository implements OrderRep
     {
         return Order::class;
     }
-
-    public function search(array $data)
-    {
-        // TODO: Implement search() method.
-    }
 }

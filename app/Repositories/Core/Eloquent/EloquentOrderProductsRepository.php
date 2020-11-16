@@ -14,9 +14,4 @@ class EloquentOrderProductsRepository extends BaseEloquentRepository implements 
     {
         return OrderProduct::class;
     }
-
-    public function search(array $data)
-    {
-        // TODO: Implement search() method.
-    }
 }
