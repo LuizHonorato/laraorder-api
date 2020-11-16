@@ -9,10 +9,12 @@ use App\Exceptions\NotEntityDefined;
 class BaseEloquentRepository
 {
     protected $entity;
+    protected $today;
 
     public function __construct()
     {
         $this->entity = $this->resolveEntity();
+        $this->today = date("Y-m-d");
     }
 
     public function all()
@@ -33,6 +35,11 @@ class BaseEloquentRepository
     public function findWhereFirst($column, $value)
     {
         return $this->entity->where($column, $value)->first();
+    }
+
+    public function findWhereBetween($column, $to, $from)
+    {
+        return $this->entity->whereBetween($column, [$to, $from])->get();
     }
 
     public function paginate($totalPage = 10)

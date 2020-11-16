@@ -20,6 +20,19 @@ services:
       - app-network
 
 
+  redis:
+    image: redis:alpine
+    container_name: redis
+    command: redis-server --appendonly yes --requirepass RedisPass2020!
+    volumes:
+      - ./docker/redis/data:/data
+    ports:
+      - "6379:6379"
+
+    networks:
+      - app-network
+
+
   # NGINX - Service
   webserver:
     image: nginx:alpine
