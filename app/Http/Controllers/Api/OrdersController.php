@@ -6,23 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderFormRequest;
 use App\Repositories\Contracts\OrderRepositoryInterface;
 use App\Services\Order\CreateOrderService;
+use App\Services\Order\FindServicesByDate;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
     protected $createOrderService;
+    protected $findServicesByDate;
     protected $ordersRepository;
 
-    public function __construct(CreateOrderService $createOrderService, OrderRepositoryInterface $ordersRepository)
+    public function __construct(CreateOrderService $createOrderService, FindServicesByDate $findServicesByDate, OrderRepositoryInterface $ordersRepository)
     {
         $this->createOrderService = $createOrderService;
+        $this->findServicesByDate = $findServicesByDate;
         $this->ordersRepository = $ordersRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        // Quando não há regra de negócio, o controller pode chamar diretamente o repository.
-        $orders = $this->ordersRepository->relationships('products')->all();
+        $orders = $this->findServicesByDate->run($request->all());
 
         return response()->json($orders);
     }
@@ -36,6 +38,9 @@ class OrdersController extends Controller
 
     public function show($id)
     {
-        //
+        // Quando não há regra de negócio, o controller pode chamar diretamente o repository.
+        $order = $this->ordersRepository->relationships('products')->findById($id);
+
+        return response()->json($order);
     }
 }

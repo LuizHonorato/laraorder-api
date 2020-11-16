@@ -3,9 +3,11 @@
 
 namespace App\Services\Order;
 
+use App\Events\OrderCreatedEvent;
 use App\Exceptions\NotDataProvided;
 use App\Exceptions\NotOrderQuantityEnough;
 use App\Exceptions\NotPriceProvided;
+use App\Mail\CreateOrderMail;
 use App\Repositories\Contracts\OrderProductsRepositoryInterface;
 use App\Repositories\Contracts\OrderRepositoryInterface;
 
@@ -59,6 +61,10 @@ class CreateOrderService
             $this->orderProductsRepository->store($order_product);
         }
 
-        return $this->ordersRepository->relationships('products')->findById($customer_order->id);
+        $order_created = $this->ordersRepository->relationships('products')->findById($customer_order->id);
+
+        event(new OrderCreatedEvent($order_created, $data['customer_name']));
+
+        return $order_created;
     }
 }
