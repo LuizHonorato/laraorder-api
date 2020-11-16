@@ -37,4 +37,12 @@ Esta API foi criada com a utilização das seguintes ferramentas:
 - MAIL_PASSWORD=
 - MAIL_ENCRYPTION=tls
 
-Garante que as chaves MAIL_USERNAME e MAIL_PASSWORD estejam preenchidas com os seus dados da API do mailtrap. Após criar um pedido, verifique sua caixa de entrada no mailtrap para ver os dados do mesmo.
+Garante que as chaves MAIL_USERNAME e MAIL_PASSWORD estejam preenchidas com os seus dados da API do mailtrap. Após criar um pedido, seguinte o comando no terminal na pasta do projeto:
+
+- docker-compose exec app bash
+
+Ao entrar no container da aplicação rode o seguinte comando para iniciar a fila: 
+
+- php artisan queue:work
+
+Verifique sua caixa de entrada no mailtrap para ver os dados do pedido criado.
