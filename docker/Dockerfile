@@ -38,11 +38,14 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 COPY . /var/www
 
 COPY --chown=www:www . /var/www
-COPY docker/start.sh /local/bin/start.sh
 RUN chown -R www-data:www-data /var/www
+
+COPY docker/start.sh /var/www/docker/start.sh
+RUN chmod +x /var/www/docker/start.sh
 
 USER www
 
 EXPOSE 9000
 
 CMD ["php-fpm"]
+
