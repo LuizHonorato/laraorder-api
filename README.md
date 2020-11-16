@@ -20,9 +20,14 @@ Esta API foi criada com a utilização das seguintes ferramentas:
 
 # Execução
 
- Para rodar a API garanta que o Docker e o docker-compose estejam instalados e rodando na sua máquina. Após essa verificação rodar o seguinte comando:
+ Para rodar a API garanta que o Docker e o docker-compose estejam instalados e rodando na sua máquina. Após essa verificação rodar os seguintes comandos:
  
  - docker-compose up -d
+ - docker-compose exec app bash (para entrar no container da aplicação)
+ - composer install
+ - cp .env.example .env
+ - php artisan key:generate
+ - php artisan queue:work
  
  Após o build da image, os containers estarão prontos e a aplicação estará disponível no endereço: http://localhost:8000.
  
