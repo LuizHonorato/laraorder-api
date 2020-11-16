@@ -30,11 +30,11 @@ Esta API foi criada com a utilização das seguintes ferramentas:
  
  Caso desejo testar o envio de e-mails na criação dos pedidos, é necessário criar uma conta no site https://mailtrap.io/, entrar na guia Inboxes, selecionar a opção Laravel no dropdown Integrations, copiar as configurações de variáveis de ambiente e substituir as mesmas no arquivo .env na raíz do projeto. As chaves são as seguintes:
  
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.mailtrap.io
-MAIL_PORT=2525
-MAIL_USERNAME=
-MAIL_PASSWORD=
-MAIL_ENCRYPTION=tls
+- MAIL_MAILER=smtp
+- MAIL_HOST=smtp.mailtrap.io
+- MAIL_PORT=2525
+- MAIL_USERNAME=
+- MAIL_PASSWORD=
+- MAIL_ENCRYPTION=tls
 
 Garante que as chaves MAIL_USERNAME e MAIL_PASSWORD estejam preenchidas com os seus dados da API do mailtrap. Após criar um pedido, verifique sua caixa de entrada no mailtrap para ver os dados do mesmo.
