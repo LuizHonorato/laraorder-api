@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:7.4.12-fpm
 
 COPY composer.lock composer.json /var/www/
 
@@ -24,16 +24,6 @@ RUN apt-get update && apt-get install -y \
     wget \
     curl
 
-RUN cd /tmp && git clone https://github.com/swoole/swoole-src.git && \
-    cd swoole-src && \
-    git checkout v4.5.2 && \
-    phpize  && \
-    ./configure  --enable-openssl && \
-    make && make install
-
-RUN touch /usr/local/etc/php/conf.d/swoole.ini && \
-    echo 'extension=swoole.so' > /usr/local/etc/php/conf.d/swoole.ini
-
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pdo pdo_pgsql zip exif pcntl
@@ -50,7 +40,12 @@ COPY . /var/www
 COPY --chown=www:www . /var/www
 RUN chown -R www-data:www-data /var/www
 
+COPY docker/start.sh /var/www/docker/start.sh
+RUN chmod +x /var/www/docker/start.sh
+
 USER www
 
 EXPOSE 9000
+
 CMD ["php-fpm"]
+
